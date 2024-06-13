@@ -22,6 +22,8 @@
   },
   "type": "module",
   "dependencies": {
+    "@kobbleio/javascript": "^1.6.0",
+    "@kobbleio/react-web-extension": "^1.0.1",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },

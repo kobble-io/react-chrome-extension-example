@@ -1,6 +1,8 @@
 {
   "extends": "@chrome-extension-boilerplate/tsconfig/base",
   "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
     "baseUrl": ".",
     "paths": {
       "@lib/*": [
@@ -8,7 +10,8 @@
       ]
     },
     "types": [
-      "chrome"
+      "chrome",
+      "vite/client"
     ]
   },
   "include": [

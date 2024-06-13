@@ -2,15 +2,33 @@ import '@src/Newtab.css';
 import '@src/Newtab.scss';
 import { useStorageSuspense, withErrorBoundary, withSuspense } from '@chrome-extension-boilerplate/shared';
 import { exampleThemeStorage } from '@chrome-extension-boilerplate/storage';
-import { ComponentPropsWithoutRef } from 'react';
+import {ComponentPropsWithoutRef, useEffect} from 'react';
+import {LoginButton, LogoutButton, SignedIn, SignedOut} from "@kobbleio/react-web-extension";
 
 const Newtab = () => {
   const theme = useStorageSuspense(exampleThemeStorage);
+
+  useEffect(() => {
+    console.log('Redirect uri', chrome.identity.getRedirectURL('callback'));
+  }, []);
 
   return (
     <div className="App" style={{ backgroundColor: theme === 'light' ? '#eee' : '#222' }}>
       <header className="App-header" style={{ color: theme === 'light' ? '#222' : '#eee' }}>
         <img src={chrome.runtime.getURL('newtab/logo.svg')} className="App-logo" alt="logo" />
+        <SignedIn>
+          <p>You are signed in</p>
+          <LogoutButton>
+            <span className={'font-bold mt-4 py-1 px-4 rounded shadow hover:scale-105 bg-white text-black'}>Logout</span>
+          </LogoutButton>
+        </SignedIn>
+
+        <SignedOut>
+          <p>You are signed out</p>
+          <LoginButton>
+            <span className={'font-bold mt-4 py-1 px-4 rounded shadow hover:scale-105 bg-white text-black cursor-pointer'}>Login</span>
+          </LoginButton>
+        </SignedOut>
         <p>
           Edit <code>pages/newtab/src/Newtab.tsx</code> and save to reload.
         </p>

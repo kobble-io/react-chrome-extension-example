@@ -1,6 +1,7 @@
 import '@src/Popup.css';
 import { useStorageSuspense, withErrorBoundary, withSuspense } from '@chrome-extension-boilerplate/shared';
 import { exampleThemeStorage } from '@chrome-extension-boilerplate/storage';
+import { LoginButton, LogoutButton, SignedIn, SignedOut } from "@kobbleio/react-web-extension";
 
 import { ComponentPropsWithoutRef } from 'react';
 
@@ -16,6 +17,20 @@ const Popup = () => {
       <header className="App-header" style={{ color: theme === 'light' ? '#222' : '#eee' }}>
         <img src={chrome.runtime.getURL('newtab/logo.svg')} className="App-logo" alt="logo" />
 
+        <SignedIn>
+            <p>You are signed in</p>
+            <LogoutButton>
+                <span className={'font-bold mt-4 py-1 px-4 rounded shadow hover:scale-105 bg-white text-black'}>Logout</span>
+            </LogoutButton>
+        </SignedIn>
+
+        <SignedOut>
+            <p>You are signed out</p>
+            <LoginButton>
+                <span className={'font-bold mt-4 py-1 px-4 rounded shadow hover:scale-105 bg-white text-black cursor-pointer'}>Login</span>
+            </LoginButton>
+        </SignedOut>
+
         <p>
           Edit <code>pages/popup/src/Popup.tsx</code> and save to reload.
         </p>
@@ -27,25 +42,8 @@ const Popup = () => {
           style={{ color: theme === 'light' ? '#0281dc' : undefined, marginBottom: '10px' }}>
           Learn React!
         </a>
-        <ToggleButton>Toggle theme</ToggleButton>
       </header>
     </div>
-  );
-};
-
-const ToggleButton = (props: ComponentPropsWithoutRef<'button'>) => {
-  const theme = useStorageSuspense(exampleThemeStorage);
-  return (
-    <button
-      className={
-        props.className +
-        ' ' +
-        'font-bold mt-4 py-1 px-4 rounded shadow hover:scale-105 ' +
-        (theme === 'light' ? 'bg-white text-black' : 'bg-black text-white')
-      }
-      onClick={exampleThemeStorage.toggle}>
-      {props.children}
-    </button>
   );
 };
 
